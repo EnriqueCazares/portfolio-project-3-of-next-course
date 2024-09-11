@@ -3,12 +3,12 @@ import BaseLayout from '@/components/layouts/BaseLayout';
 
 type Props = {}
 
-const index = (props: Props) => {
+const blogs = (props: Props) => {
   return (
     <BaseLayout>
-      <div>index page</div>
+        <div>i'm blogs page</div>
     </BaseLayout>
   )
 }
 
-export default index
+export default blogs;
