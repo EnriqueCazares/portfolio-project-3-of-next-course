@@ -2,15 +2,20 @@ import React, { ReactNode } from 'react';
 import Header from "@/components/shared/Header";
 
 type BaseLayoutProps = {
-    children: ReactNode
+    children: ReactNode,
+    className: string
 }
 
-const BaseLayout = ({children} : BaseLayoutProps) => {
+const BaseLayout = ({children, className = ''} : BaseLayoutProps) => {
   return (
-    <>
-        <Header />
-        {children}
-    </>
+    <div className="layout-container">
+      <Header />
+      <main className={`cover ${className}`}>
+        <div className="wrapper">
+          {children}
+        </div>
+      </main>
+    </div>
   )
 }
 

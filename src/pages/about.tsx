@@ -1,14 +1,17 @@
-import React from 'react'
-import BaseLayout from '@/components/layouts/BaseLayout'
+import React from 'react';
+import BaseLayout from '@/components/layouts/BaseLayout';
+import Basepage from '@/components/Basepage';
 
-type Props = {}
+type Props = {};
 
 const about = (props: Props) => {
   return (
-    <BaseLayout>
+    <BaseLayout className=''>
+      <Basepage className=''>
         <div>i'm about page</div>
+        </Basepage>
     </BaseLayout>
   )
-}
+};
 
 export default about;

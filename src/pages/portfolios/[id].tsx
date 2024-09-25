@@ -3,6 +3,7 @@ import React from 'react';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import { Post } from '@/Models/Post';
 import axios, { AxiosResponse } from 'axios';
+import Basepage from '@/components/Basepage';
 
 type portfolioDetailsPageProps = {
     portfolio: Post
@@ -11,10 +12,12 @@ type portfolioDetailsPageProps = {
 const portfolioDetailsPage = ({ portfolio }: portfolioDetailsPageProps) => {
 
   return (
-    <BaseLayout>
-        <h1 style={{marginTop: '1rem'}}>{portfolio.title}</h1>
-        <p style={{marginTop: '0.5rem'}}>BODY: {portfolio.body}</p>
-        <p style={{marginTop: '0.5rem'}}>ID: {portfolio.id}</p>
+    <BaseLayout className=''>
+        <Basepage className=''>
+            <h1 style={{marginTop: '1rem'}}>{portfolio.title}</h1>
+            <p style={{marginTop: '0.5rem'}}>BODY: {portfolio.body}</p>
+            <p style={{marginTop: '0.5rem'}}>ID: {portfolio.id}</p>
+        </Basepage>
     </BaseLayout>
   )
 }

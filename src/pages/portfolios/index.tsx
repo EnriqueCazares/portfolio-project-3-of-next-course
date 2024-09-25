@@ -3,6 +3,7 @@ import BaseLayout from '@/components/layouts/BaseLayout';
 import axios, { AxiosResponse } from 'axios';
 import Link from 'next/link';
 import { Post } from '@/Models/Post';
+import Basepage from '@/components/Basepage';
 
 type portfoliosProps = {
   posts: Post[]
@@ -10,7 +11,8 @@ type portfoliosProps = {
 
 const portfolios = ({ posts }: portfoliosProps) => {
   return (
-    <BaseLayout>
+    <BaseLayout className=''>
+      <Basepage className=''>
         <div>i'm portfolios page</div>
         <ul>
           {posts.map((post) => (
@@ -21,6 +23,7 @@ const portfolios = ({ posts }: portfoliosProps) => {
             </li>
           ))}
         </ul>
+      </Basepage>
     </BaseLayout>
   )
 }
