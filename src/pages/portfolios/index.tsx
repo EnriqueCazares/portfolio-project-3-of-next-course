@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+import React, { use } from 'react';
+import { useEffect } from 'react';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import axios, { AxiosResponse } from 'axios';
 import Link from 'next/link';
@@ -10,6 +12,19 @@ type portfoliosProps = {
 }
 
 const portfolios = ({ posts }: portfoliosProps) => {
+  useEffect(() => {
+    const getPost = async () => {
+      try {
+        const res: AxiosResponse = await axios.get('/api/v1/posts');
+        const data = res.data;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    getPost();
+  }, []);
+
   return (
     <BaseLayout className=''>
       <Basepage className=''>

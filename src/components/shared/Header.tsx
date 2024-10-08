@@ -22,6 +22,11 @@ const BsNavLink = ({href, title}: BsNavLinkProps) => {
   )
 }
 
+const LoginLink = () => <span className='nav-link port-navbar-link clickable'>Login</span>;
+
+const LogoutLink = () => <span className='nav-link port-navbar-link clickable'>Logout</span>;
+
+
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
@@ -55,6 +60,14 @@ const Header = () => {
             </NavItem>
             <NavItem className="port-navbar-item">
               <BsNavLink href="/cv" title="Cv"/>
+            </NavItem>
+          </Nav>
+          <Nav navbar>
+            <NavItem className="port-navbar-item">
+                <LoginLink />
+            </NavItem>
+            <NavItem className="port-navbar-item">
+                <LogoutLink />
             </NavItem>
           </Nav>
         </Collapse>

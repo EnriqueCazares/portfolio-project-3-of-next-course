@@ -27,3 +27,12 @@ html, body {
   padding-top: 150px;
   color: #fff;
 }
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.clickable {
+  cursor: pointer;
+  transition: cursor 2s ease;
+}
