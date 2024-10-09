@@ -1,59 +1,33 @@
-'use client';
-import React, { use } from 'react';
-import { useEffect } from 'react';
-import BaseLayout from '@/components/layouts/BaseLayout';
-import axios, { AxiosResponse } from 'axios';
+import React from 'react';
 import Link from 'next/link';
-import { Post } from '@/Models/Post';
+
+import BaseLayout from '@/components/layouts/BaseLayout';
 import Basepage from '@/components/Basepage';
 
-type portfoliosProps = {
-  posts: Post[]
-}
+import { useGetPosts } from '@/actions';
 
-const portfolios = ({ posts }: portfoliosProps) => {
-  useEffect(() => {
-    const getPost = async () => {
-      try {
-        const res: AxiosResponse = await axios.get('/api/v1/posts');
-        const data = res.data;
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    getPost();
-  }, []);
+const Portfolios = () => {
+  const { posts, error } = useGetPosts();
 
   return (
     <BaseLayout className=''>
       <Basepage className=''>
-        <div>i'm portfolios page</div>
-        <ul>
-          {posts.map((post) => (
-            <li key={post.id}>
-              ID: {post.id} <br />
-              Title: {post.title} <br />
-              <Link href={`/portfolios/${post.id}`}>Details Page</Link>
-            </li>
-          ))}
-        </ul>
+        <div>im portfolios page</div>
+        { error ? <div className='alert alert-danger'>Error al cargar los Posts</div> :
+          <ul>
+            {posts.map((post) => (
+              <li key={post.id}>
+                ID: {post.id} <br />
+                Title: {post.title} <br />
+                <Link href={`/portfolios/${post.id}`}>Details Page</Link>
+              </li>
+            ))}
+          </ul>
+
+        }
       </Basepage>
     </BaseLayout>
   )
-}
+};
 
-portfolios.getInitialProps = async () => {
-  let data: Post[] = [];
-  try {
-    const res: AxiosResponse = await axios.get('https://jsonplaceholder.typicode.com/posts');
-    data = res.data;
-  } catch (error) {
-    console.error(error);
-    data = [];
-  }
-  return { posts: data.slice(0,10) };
-  
-}
-
-export default portfolios;
+export default Portfolios;
