@@ -1,21 +1,25 @@
-import React from 'react';
+import React, { use } from 'react';
 import Link from 'next/link';
 
 import BaseLayout from '@/components/layouts/BaseLayout';
 import Basepage from '@/components/Basepage';
+import { Post } from '@/Models/Post';
 
 import { useGetPosts } from '@/actions';
 
 const Portfolios = () => {
-  const { posts, error } = useGetPosts();
-
+  const { data, error, isLoading } = useGetPosts();
+  debugger;
   return (
     <BaseLayout className=''>
       <Basepage className=''>
         <div>im portfolios page</div>
-        { error ? <div className='alert alert-danger'>Error al cargar los Posts</div> :
+        { isLoading &&
+          <p>Loading data ...</p>
+        }
+        { error ? <div className='alert alert-danger'>Error al cargar los Posts</div> : data &&
           <ul>
-            {posts.map((post) => (
+            {data.map((post: Post) => (
               <li key={post.id}>
                 ID: {post.id} <br />
                 Title: {post.title} <br />

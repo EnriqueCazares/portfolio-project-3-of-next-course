@@ -1,40 +1,37 @@
-import { NextPageContext } from 'next';
+import { useRouter } from 'next/router';
 import React from 'react';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import { Post } from '@/Models/Post';
-import axios, { AxiosResponse } from 'axios';
 import Basepage from '@/components/Basepage';
+import { useGetPostById } from '@/actions';
 
 type portfolioDetailsPageProps = {
     portfolio: Post
 }
 
-const portfolioDetailsPage = ({ portfolio }: portfolioDetailsPageProps) => {
+const PortfolioDetailsPage = ({ portfolio }: portfolioDetailsPageProps) => {
+    const router = useRouter();
+    const { data, error, isLoading } = useGetPostById(router.query.id);
+    portfolio = data;
 
   return (
     <BaseLayout className=''>
         <Basepage className=''>
-            <h1 style={{marginTop: '1rem'}}>{portfolio.title}</h1>
-            <p style={{marginTop: '0.5rem'}}>BODY: {portfolio.body}</p>
-            <p style={{marginTop: '0.5rem'}}>ID: {portfolio.id}</p>
+            {   isLoading && 
+                <p>Loading data ...</p>
+            }
+            {   error ? <div className='alert alert-danger'>{error.message}</div> :
+                portfolio &&
+                <>
+                    <h1 style={{marginTop: '1rem'}}>{portfolio.title}</h1>
+                    <p style={{marginTop: '0.5rem'}}>BODY: {portfolio.body}</p>
+                    <p style={{marginTop: '0.5rem'}}>ID: {portfolio.id}</p>
+                </>
+            }
+            
         </Basepage>
     </BaseLayout>
   )
-}
+};
 
-portfolioDetailsPage.getInitialProps = async (ctx: NextPageContext) => {
-    
-    let post: Post;
-
-    try {
-        const res: AxiosResponse = await axios.get(`https://jsonplaceholder.typicode.com/posts/${ctx.query.id}`);
-        post = res.data;
-    } catch (error) {
-        console.error(error);
-        post = { userId: 0, id: 0, title: '', body: ''};
-    }
-
-    return { portfolio: post };
-}
-
-export default portfolioDetailsPage;
+export default PortfolioDetailsPage;

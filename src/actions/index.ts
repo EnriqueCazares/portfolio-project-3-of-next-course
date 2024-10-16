@@ -1,29 +1,19 @@
-'use client';
-import { useEffect, useState } from 'react';
-import { Post } from '@/Models/Post';
-import axios, { AxiosResponse } from 'axios';
+import useSWR from 'swr';
+import axios from 'axios';
+const fetcher = (url : string) => axios.get(url).then(res => {
+  const result = res.data;
 
-interface Portfolios {
-    posts: Post[],
-    error: unknown
-}
+  if(res.status !== 200) {
+    return Promise.reject(result);
+  } else {
+    return result;
+  }
+});
 
 export const useGetPosts = () => {
-    const [state, setState] = useState<Portfolios>({ posts: [], error: undefined });  
-    useEffect(() => {
-      const getPost = async () => {
-        try {
-          const res: AxiosResponse = await axios.get('/api/v1/posts');
-          setState({ posts: res.data, error: undefined});
-          //debugger;
-        } catch (error) {
-            console.error('Unexpected error:', error);
-            setState({ posts: [], error: error  })
-          }
-      };
-  
-      getPost();
-    }, []);
-  
-    return state;
+  return useSWR('/api/v1/posts', fetcher);
+}
+
+export const useGetPostById = (id: string) => {
+  return useSWR(id ? `/api/v1/posts/${id}`: null, fetcher);
 }
