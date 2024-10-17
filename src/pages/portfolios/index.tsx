@@ -9,7 +9,6 @@ import { useGetPosts } from '@/actions';
 
 const Portfolios = () => {
   const { data, error, isLoading } = useGetPosts();
-  debugger;
   return (
     <BaseLayout className=''>
       <Basepage className=''>
