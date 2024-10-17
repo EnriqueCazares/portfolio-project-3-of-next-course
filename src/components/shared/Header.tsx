@@ -7,6 +7,7 @@ import {
   Nav,
   NavItem
 } from 'reactstrap';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 type BsNavLinkProps = {
   href: string,
@@ -30,6 +31,7 @@ const LogoutLink = () => <BsNavLink href='/api/auth/logout' title='Logout' />;
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const { user, isLoading } = useUser();
 
   return (
     <div>
@@ -63,12 +65,22 @@ const Header = () => {
             </NavItem>
           </Nav>
           <Nav navbar>
-            <NavItem className="port-navbar-item">
-                <LoginLink />
-            </NavItem>
-            <NavItem className="port-navbar-item">
-                <LogoutLink />
-            </NavItem>
+            {
+              !isLoading &&
+              <>
+                {
+                  user ? 
+                  <NavItem className="port-navbar-item">
+                      <LogoutLink />
+                  </NavItem> 
+                  :
+                  <NavItem className="port-navbar-item">
+                    <LoginLink />
+                  </NavItem>
+                    
+                }
+              </>
+            }
           </Nav>
         </Collapse>
       </Navbar>

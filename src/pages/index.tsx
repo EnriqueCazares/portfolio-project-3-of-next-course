@@ -7,7 +7,7 @@ type Props = {};
 
 const roles: Array<string> = ["Front End - Developer", "Tech Lover", "Producer", "DJ", "Handsome"];
 
-const index = (props: Props) => {
+const Index = (props: Props) => {
   return (
     <BaseLayout className="cover">
         <div className="main-section">
@@ -65,4 +65,4 @@ const index = (props: Props) => {
   )
 }
 
-export default index
+export default Index
